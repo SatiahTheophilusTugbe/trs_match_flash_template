@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <!--
-TRS MATCH RESULT TEMPLATE v7 — Jul 8/9 polish pass
+TRS MATCH RESULT TEMPLATE v8 — Jul 10 design pass
+vs v7:
+- S1 slash: rebuilt as .score-slash anchored INSIDE .score-row — self-centers between the
+  digits on every render (old canvas-rotated gradient could never track the flex-centered score).
+  Slices the dash separator by design; digits z-lifted above the line as a safety net.
+  Scorer strip + timeline (z15, later siblings) still paint ABOVE the line — no photo collisions.
+- S1 scorers: photos/fallback/+N chip 76→92px; compact tier via :has() quantity query drops
+  the whole strip back to 76px when EITHER side reaches 3 cards (needs a 3+ scorer test render
+  to verify :has() in HCTI's Chrome — flag if it doesn't fire).
+- S4 sign-off: 32px ghost-volt 0.55 → 36px off-white 0.88, weight 400, volt "— " prefix.
+  Editorial voice now reads; volt reserved for the accent.
+
 vs v6:
 - Chrome: SPORT. DECODED. + page counter brightened (0.85/0.7 volt + shadow) — legible on color zones
 - S1: scorer strip +18px lower, timeline +12px lower, bottom padding 66→88
@@ -64,22 +75,30 @@ body{background:#0a0a0a;margin:0;padding:0}
 .mf-scorer-side.away{justify-content:flex-end}
 .mf-scorer-card{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:110px;max-width:170px}
 .mf-scorer-photo{
-  width:76px;height:76px;border-radius:50%;object-fit:cover;
+  width:92px;height:92px;border-radius:50%;object-fit:cover;
   border:4px solid rgba(170,255,0,0.8);box-shadow:0 4px 14px rgba(0,0,0,0.6);
   background:rgba(255,255,255,0.06);display:block
 }
 .mf-scorer-fallback{
-  width:76px;height:76px;border-radius:50%;border:4px solid rgba(170,255,0,0.45);
+  width:92px;height:92px;border-radius:50%;border:4px solid rgba(170,255,0,0.45);
   background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:32px;color:rgba(255,255,255,0.75)
+  font-family:'Bebas Neue',sans-serif;font-size:38px;color:rgba(255,255,255,0.75)
 }
 .mf-scorer-name{font-size:23px;font-weight:600;color:#fff;text-align:center;line-height:1.15;max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 8px rgba(0,0,0,0.7)}
 .mf-scorer-mins{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:#AAFF00;line-height:1;text-align:center}
 .mf-scorer-more{
-  width:76px;height:76px;border-radius:50%;border:4px dashed rgba(170,255,0,0.5);
+  width:92px;height:92px;border-radius:50%;border:4px dashed rgba(170,255,0,0.5);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(170,255,0,0.85)
+  font-family:'Bebas Neue',sans-serif;font-size:32px;color:rgba(170,255,0,0.85)
 }
+/* Compact density tier — if EITHER side reaches 3 cards, whole strip drops to 76px so nothing overflows */
+.mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-photo,
+.mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-fallback,
+.mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-more{
+  width:76px;height:76px
+}
+.mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-fallback{font-size:32px}
+.mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-more{font-size:28px}
 .mf-scorer-side.away .mf-scorer-photo,
 .mf-scorer-side.away .mf-scorer-fallback{border-color:rgba(255,255,255,0.55)}
 .mf-scorer-side.away .mf-scorer-mins{color:rgba(255,255,255,0.8)}
@@ -101,11 +120,15 @@ body{background:#0a0a0a;margin:0;padding:0}
 #s1 .home-zone{position:absolute;inset:0;background:{{HOME_COLOR}};clip-path:polygon(0 0,100% 0,50% 100%,0 100%)}
 #s1 .away-zone{position:absolute;inset:0;background:{{AWAY_COLOR}};clip-path:polygon(100% 0,100% 100%,50% 100%)}
 #s1 .darken{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 45%,rgba(0,0,0,0.55) 100%)}
-#s1 .slash{
-  position:absolute;inset:0;z-index:3;
-  background:linear-gradient(to bottom right,transparent calc(50% - 3px),#AAFF00 calc(50% - 3px),#AAFF00 calc(50% + 3px),transparent calc(50% + 3px));
-  transform:rotate(-20deg) scale(1.6)
+/* Slash anchored to the score separator — self-centers between the digits on every render */
+#s1 .score-row{position:relative}
+#s1 .score-slash{
+  position:absolute;left:50%;top:50%;width:6px;height:3200px;
+  background:#AAFF00;box-shadow:0 0 16px rgba(170,255,0,0.35);
+  transform:translate(-50%,-50%) rotate(18deg);
+  z-index:2;pointer-events:none
 }
+#s1 .score-num{position:relative;z-index:3}
 #s1 .ghost{
   position:absolute;font-family:'Bebas Neue',sans-serif;
   font-size:560px;line-height:1;color:#fff;opacity:0.11;
@@ -195,7 +218,8 @@ body{background:#0a0a0a;margin:0;padding:0}
 #s4 .next-date{font-family:'Bebas Neue',sans-serif;font-size:52px;color:#AAFF00;width:140px;flex-shrink:0;line-height:1}
 #s4 .next-pipe{width:2px;height:52px;background:rgba(255,255,255,0.15);flex-shrink:0}
 #s4 .next-match{font-size:44px;color:#fff;font-weight:600}
-#s4 .so-line{font-size:32px;color:rgba(170,255,0,0.55);font-style:italic;font-weight:300;margin-top:16px;padding-top:8px}
+#s4 .so-line{font-size:36px;color:rgba(255,255,255,0.88);font-style:italic;font-weight:400;margin-top:20px;padding-top:10px}
+#s4 .so-line::before{content:"— ";color:#AAFF00;font-style:normal;font-weight:600}
 </style>
 </head>
 <body>
@@ -212,7 +236,6 @@ body{background:#0a0a0a;margin:0;padding:0}
   <div class="home-zone"></div>
   <div class="away-zone"></div>
   <div class="darken"></div>
-  <div class="slash"></div>
   <div class="ghost">{{HOME_SCORE}}{{AWAY_SCORE}}</div>
   <div class="topbar">
     <div class="eyebrow-left">THIRD RAIL SPORTS</div>
@@ -227,6 +250,7 @@ body{background:#0a0a0a;margin:0;padding:0}
       </div>
       <div class="score-block">
         <div class="score-row">
+          <div class="score-slash"></div>
           <div class="score-num">{{HOME_SCORE}}</div>
           <div class="score-sep">—</div>
           <div class="score-num">{{AWAY_SCORE}}</div>
