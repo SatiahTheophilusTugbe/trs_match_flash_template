@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <!--
+TRS MATCH RESULT TEMPLATE v10 — Jul 22 sizing pass (Global)
+vs v9: S1 scorers 104->120 (compact 84->92), strip/timeline margins trimmed to fund it;
+S3 metric rows 15->11px pad + headers -4, gap-annotation 29->33px with 2-line room (min-height 92, lh 1.35);
+S4 star photo 140->160 (block padding/margin trimmed, net height lower), verdict zone 48->50%, next-section pad 108->96.
+---- v9 notes below ----
 TRS MATCH RESULT TEMPLATE v9 — Jul 11 fix pass
 vs v8:
 - S1 scorers: 92↚104px (compact tier 76↚84px, proportional) — more presence per Satiah's
@@ -80,44 +85,44 @@ body{background:#0a0a0a;margin:0;padding:0}
 /* ══ SCORER CARDS (slide 1) — the human hook, sized like one ══ */
 .mf-scorer-strip{
   width:100%;display:flex;justify-content:space-between;align-items:flex-start;
-  gap:40px;padding:0 70px;margin-top:40px;position:relative;z-index:15
+  gap:40px;padding:0 70px;margin-top:28px;position:relative;z-index:15
 }
 .mf-scorer-side{flex:1;display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px 24px}
 .mf-scorer-side.home{justify-content:flex-start}
 .mf-scorer-side.away{justify-content:flex-end}
-.mf-scorer-card{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:110px;max-width:170px}
+.mf-scorer-card{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:120px;max-width:184px}
 .mf-scorer-photo{
-  width:104px;height:104px;border-radius:50%;object-fit:cover;
+  width:120px;height:120px;border-radius:50%;object-fit:cover;
   border:4px solid rgba(170,255,0,0.8);box-shadow:0 4px 14px rgba(0,0,0,0.6);
   background:rgba(255,255,255,0.06);display:block
 }
 .mf-scorer-fallback{
-  width:104px;height:104px;border-radius:50%;border:4px solid rgba(170,255,0,0.45);
+  width:120px;height:120px;border-radius:50%;border:4px solid rgba(170,255,0,0.45);
   background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:42px;color:rgba(255,255,255,0.75)
+  font-family:'Bebas Neue',sans-serif;font-size:48px;color:rgba(255,255,255,0.75)
 }
-.mf-scorer-name{font-size:23px;font-weight:600;color:#fff;text-align:center;line-height:1.15;max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 8px rgba(0,0,0,0.7)}
+.mf-scorer-name{font-size:24px;font-weight:600;color:#fff;text-align:center;line-height:1.15;max-width:184px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 8px rgba(0,0,0,0.7)}
 .mf-scorer-mins{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:#AAFF00;line-height:1;text-align:center}
 .mf-scorer-more{
-  width:104px;height:104px;border-radius:50%;border:4px dashed rgba(170,255,0,0.5);
+  width:120px;height:120px;border-radius:50%;border:4px dashed rgba(170,255,0,0.5);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:34px;color:rgba(170,255,0,0.85)
+  font-family:'Bebas Neue',sans-serif;font-size:38px;color:rgba(170,255,0,0.85)
 }
 /* Compact density tier — if EITHER side reaches 3 cards, whole strip drops to 76px so nothing overflows */
 .mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-photo,
 .mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-fallback,
 .mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-more{
-  width:84px;height:84px
+  width:92px;height:92px
 }
-.mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-fallback{font-size:34px}
-.mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-more{font-size:30px}
+.mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-fallback{font-size:36px}
+.mf-scorer-strip:has(.mf-scorer-side > .mf-scorer-card:nth-child(3)) .mf-scorer-more{font-size:32px}
 .mf-scorer-side.away .mf-scorer-photo,
 .mf-scorer-side.away .mf-scorer-fallback{border-color:rgba(255,255,255,0.55)}
 .mf-scorer-side.away .mf-scorer-mins{color:rgba(255,255,255,0.8)}
 .mf-scorer-side.away .mf-scorer-more{border-color:rgba(255,255,255,0.4);color:rgba(255,255,255,0.65)}
 
 /* ══ TIMELINE — a graphic, not a hairline ══ */
-.tl{position:relative;height:104px;margin:42px 90px 0;align-self:stretch;z-index:15}
+.tl{position:relative;height:104px;margin:30px 90px 0;align-self:stretch;z-index:15}
 .tl-line{position:absolute;top:50%;left:0;right:0;height:5px;background:rgba(170,255,0,0.7);border-radius:3px;box-shadow:0 0 14px rgba(170,255,0,0.25)}
 .tl-tick{position:absolute;top:calc(50% - 11px);width:3px;height:22px;background:rgba(255,255,255,0.4)}
 .tl-et{position:absolute;top:calc(50% - 13px);width:3px;height:26px;background:rgba(170,255,0,0.95)}
@@ -146,7 +151,7 @@ body{background:#0a0a0a;margin:0;padding:0}
   font-size:560px;line-height:1;color:#fff;opacity:0.11;
   right:36px;bottom:16px;letter-spacing:-20px;pointer-events:none;z-index:4
 }
-#s1 .inner{position:relative;z-index:10;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:96px 0 88px}
+#s1 .inner{position:relative;z-index:10;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:96px 0 80px}
 #s1 .teams-row{display:flex;align-items:center;justify-content:center;width:100%;position:relative;z-index:15}
 #s1 .team-block{flex:1;display:flex;flex-direction:column;align-items:center;gap:14px}
 #s1 .team-code{font-family:'Bebas Neue',sans-serif;font-size:140px;color:#fff;letter-spacing:8px;line-height:1;text-shadow:0 4px 18px rgba(0,0,0,0.45)}
@@ -180,8 +185,8 @@ body{background:#0a0a0a;margin:0;padding:0}
 #s3 .home-edge{position:absolute;left:0;top:0;bottom:0;width:7px;background:{{HOME_COLOR}}}
 #s3 .away-edge{position:absolute;right:0;top:0;bottom:0;width:7px;background:{{AWAY_COLOR}}}
 #s3 .ghost{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:460px;line-height:1;color:#AAFF00;opacity:0.07;left:50%;top:50%;transform:translate(-50%,-50%);letter-spacing:-16px;pointer-events:none;white-space:nowrap}
-#s3 .inner{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;padding:178px 80px 66px;justify-content:center}
-#s3 .team-headers{display:flex;justify-content:space-between;margin-bottom:14px;align-items:baseline}
+#s3 .inner{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;padding:170px 80px 62px;justify-content:center}
+#s3 .team-headers{display:flex;justify-content:space-between;margin-bottom:10px;align-items:baseline}
 #s3 .th-home{font-family:'Bebas Neue',sans-serif;font-size:92px;letter-spacing:4px;line-height:1;color:{{HOME_COLOR}};text-shadow:0 0 24px rgba(255,255,255,0.08)}
 #s3 .th-away{font-family:'Bebas Neue',sans-serif;font-size:92px;letter-spacing:4px;line-height:1;text-align:right;color:{{AWAY_COLOR}};text-shadow:0 0 24px rgba(255,255,255,0.08)}
 #s3 .momentum-wrap{margin-bottom:14px}
@@ -189,7 +194,7 @@ body{background:#0a0a0a;margin:0;padding:0}
 #s3 .momentum-bar{display:flex;height:16px;border-radius:8px;overflow:hidden;gap:2px}
 #s3 .momentum-home{height:16px;border-radius:8px 0 0 8px}
 #s3 .momentum-away{height:16px;border-radius:0 8px 8px 0}
-.metric-row{margin-bottom:0;padding:15px 14px;border-bottom:1px solid rgba(255,255,255,0.06);border-radius:8px}
+.metric-row{margin-bottom:0;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,0.06);border-radius:8px}
 .metric-row:last-child{border-bottom:none}
 .metric-row.gap{background:rgba(170,255,0,0.12);border:2px solid rgba(170,255,0,0.55);border-bottom:2px solid rgba(170,255,0,0.55);box-shadow:0 0 24px rgba(170,255,0,0.12)}
 .metric-row.gap .metric-label{color:#AAFF00;font-weight:700}
@@ -197,7 +202,7 @@ body{background:#0a0a0a;margin:0;padding:0}
 .metric-val-home{font-family:'Bebas Neue',sans-serif;font-size:80px;line-height:1;width:190px;text-align:left;flex-shrink:0}
 .metric-val-away{font-family:'Bebas Neue',sans-serif;font-size:80px;line-height:1;width:190px;text-align:right;flex-shrink:0}
 .metric-label{font-size:25px;color:rgba(255,255,255,0.85);letter-spacing:4px;text-transform:uppercase;text-align:center;font-weight:500;flex:1}
-#s3 .gap-annotation{margin-top:16px;font-size:29px;color:rgba(170,255,0,0.95);font-style:italic;font-weight:300;text-align:center;min-height:34px}
+#s3 .gap-annotation{margin-top:18px;font-size:33px;color:rgba(170,255,0,0.95);font-style:italic;font-weight:300;text-align:center;min-height:92px;line-height:1.35;padding:0 30px}
 
 /* ══ SLIDE 4: VERDICT + NEXT ══ */
 #s4{background:#0a0a0a}
@@ -211,26 +216,26 @@ body{background:#0a0a0a;margin:0;padding:0}
 }
 #s4 .inner{position:relative;z-index:10;flex:1;display:flex;flex-direction:column;padding:120px 56px 90px}
 /* Top zone: verdict + star (~ends above the 52-65% boundary) */
-#s4 .verdict-section{flex:0 0 48%;display:flex;flex-direction:column;justify-content:center;padding-bottom:10px}
+#s4 .verdict-section{flex:0 0 50%;display:flex;flex-direction:column;justify-content:center;padding-bottom:10px}
 #s4 .verdict-eyebrow{font-size:28px;letter-spacing:8px;color:#AAFF00;text-transform:uppercase;font-weight:600;margin-bottom:16px}
 #s4 .verdict-line{font-family:'Bebas Neue',sans-serif;font-size:88px;line-height:0.92;color:#fff;letter-spacing:-1px}
 #s4 .verdict-line span{color:#AAFF00}
 /* Star of the Match — hero block */
-.mf-star{display:flex;align-items:center;gap:32px;margin-top:52px;padding:28px 40px;border-left:8px solid #AAFF00;background:rgba(0,0,0,0.4);border-radius:0 10px 10px 0;width:fit-content;box-shadow:0 6px 24px rgba(0,0,0,0.35)}
-.mf-star-photo{width:140px;height:140px;border-radius:50%;object-fit:cover;border:5px solid #AAFF00;box-shadow:0 6px 24px rgba(0,0,0,0.6),0 0 30px rgba(170,255,0,0.25);flex-shrink:0}
+.mf-star{display:flex;align-items:center;gap:30px;margin-top:36px;padding:22px 36px;border-left:8px solid #AAFF00;background:rgba(0,0,0,0.4);border-radius:0 10px 10px 0;width:fit-content;box-shadow:0 6px 24px rgba(0,0,0,0.35)}
+.mf-star-photo{width:160px;height:160px;border-radius:50%;object-fit:cover;border:5px solid #AAFF00;box-shadow:0 6px 24px rgba(0,0,0,0.6),0 0 30px rgba(170,255,0,0.25);flex-shrink:0}
 .mf-star-label{display:block;color:#AAFF00;font-weight:700;letter-spacing:4px;font-size:26px;text-transform:uppercase;margin-bottom:6px}
-.mf-star-name{display:block;color:#fff;font-weight:700;font-size:56px;line-height:1.1}
-.mf-star-rating{font-family:'Bebas Neue',sans-serif;color:#AAFF00;font-size:76px;line-height:1;margin-left:18px}
+.mf-star-name{display:block;color:#fff;font-weight:700;font-size:58px;line-height:1.1}
+.mf-star-rating{font-family:'Bebas Neue',sans-serif;color:#AAFF00;font-size:80px;line-height:1;margin-left:18px}
 /* Bottom zone: What's Next fully below the boundary */
-#s4 .next-section{flex:1;display:flex;flex-direction:column;justify-content:flex-start;padding-top:108px;position:relative;z-index:10}
-#s4 .next-label{font-size:28px;letter-spacing:6px;color:rgba(170,255,0,0.7);text-transform:uppercase;font-weight:600;margin-bottom:14px}
-#s4 .next-row{display:flex;align-items:center;gap:26px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.1)}
+#s4 .next-section{flex:1;display:flex;flex-direction:column;justify-content:flex-start;padding-top:134px;position:relative;z-index:10}
+#s4 .next-label{font-size:28px;letter-spacing:6px;color:rgba(170,255,0,0.7);text-transform:uppercase;font-weight:600;margin-bottom:10px}
+#s4 .next-row{display:flex;align-items:center;gap:26px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1)}
 #s4 .next-row:last-of-type{border-bottom:none}
 #s4 .next-row.hidden{display:none}
 #s4 .next-date{font-family:'Bebas Neue',sans-serif;font-size:52px;color:#AAFF00;width:140px;flex-shrink:0;line-height:1}
 #s4 .next-pipe{width:2px;height:52px;background:rgba(255,255,255,0.15);flex-shrink:0}
 #s4 .next-match{font-size:44px;color:#fff;font-weight:600}
-#s4 .so-line{font-size:36px;color:rgba(255,255,255,0.88);font-style:italic;font-weight:400;margin-top:14px;padding-top:8px}
+#s4 .so-line{font-size:36px;color:rgba(255,255,255,0.88);font-style:italic;font-weight:400;margin-top:8px;padding-top:4px}
 #s4 .so-line::before{content:"— ";color:#AAFF00;font-style:normal;font-weight:600}
 </style>
 </head>
